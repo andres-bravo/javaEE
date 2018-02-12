@@ -28,21 +28,23 @@ public class AgregarProductoCarrito extends HttpServlet {
 		//obtenemos/creamos HttpSession
 		HttpSession s=request.getSession();
 		//Recogemos los parametros del formulario
-		Venta v=new Venta(0,(Integer)s.getAttribute("clientesession"),
-				Integer.parseInt(request.getParameter("idLibro")),LocalDateTime.now());
+		Venta v=new Venta(0,(Integer)s.getAttribute("clientesession"),Integer.parseInt(request.getParameter("idLibro")),
+				LocalDateTime.now(),request.getParameter("libro"),request.getParameter("autor"),
+				Double.parseDouble(request.getParameter("precio")));
 
-		//Comprobamos si está establecido el parámetro de session del carrito
+		//Comprobamos si estï¿½ establecido el parï¿½metro de session del carrito
 		ArrayList<Venta> carrito = (ArrayList<Venta>)s.getAttribute("carrito");
 		//Si el carrito estaba vacio lo creo nuevo
 		if (carrito==null){
 			carrito = new ArrayList();
 		}
-		//Añado articulo al carrito
+		//Aï¿½ado articulo al carrito
 		carrito.add(v);
 		//Actualizo la session con el carrito
 		s.setAttribute("carrito", carrito);
-		//Hago un forward al Menu de Inicio
-		request.getRequestDispatcher("Controller?op=doMostrarLibros");
+		//Hago un forward al MostrarLibros
+		//request.getRequestDispatcher("Controller?op=doMostrarLibros?selectTemas=2");
+		request.getRequestDispatcher("RecuperarLibrosAction?selectTemas="+Integer.parseInt(request.getParameter("selectTemas"))).forward(request, response);
 	}
 
 }

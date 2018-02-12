@@ -6,6 +6,10 @@ public class Venta {
 	private int idVenta;
 	private int idCliente;
 	private int idLibro;
+	private String libro;
+	private String autor;
+	private double precio;
+	
 	private LocalDateTime fecha;
 	public int getIdVenta() {
 		return idVenta;
@@ -30,12 +34,33 @@ public class Venta {
 	}
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
+	}	
+	public String getLibro() {
+		return libro;
 	}
-	public Venta(int idVenta, int idCliente, int idLibro, LocalDateTime fecha) {
+	public void setLibro(String libro) {
+		this.libro = libro;
+	}
+	public String getAutor() {
+		return autor;
+	}
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+	public double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+	public Venta(int idVenta, int idCliente, int idLibro, LocalDateTime fecha, String libro, String autor, double precio) {
 		this.idVenta = idVenta;
 		this.idCliente = idCliente;
 		this.idLibro = idLibro;
 		this.fecha = fecha;
+		this.autor=autor;
+		this.libro=libro;
+		this.precio=precio;
 	}
 	
 	

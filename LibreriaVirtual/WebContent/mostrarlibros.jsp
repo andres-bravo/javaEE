@@ -23,14 +23,15 @@
 						<td>${lib.getTitulo()}</td>
 						<td>${lib.getAutor()}</td>
 						<td>${lib.getPrecio()}</td>
-						<td><a href="Controller?op=doAgregarCarrito&idLibro=${lib.getIsbn()}">Comprar</a>
+						<td><a href="Controller?op=doAgregarCarrito&idLibro=${lib.getIsbn()}&libro=${lib.getTitulo()}
+							&autor=${lib.getAutor()}&precio=${lib.getPrecio()}&selectTemas=${requestScope.selectTemas}">Comprar</a>
 					</tr>			
 				</c:forEach>			
 			</table>		
 		</c:otherwise>		
 	</c:choose>
 	<br/>
-	<c:set var="ventas" value="${sessionScope.carrito}"/>
+	<c:set var="carrito" value="${sessionScope.carrito}"/>
 	<c:choose>
 		<c:when test="${empty carrito}">
 			<h1>Carrito vacio</h1>
@@ -39,10 +40,14 @@
 			<table border="1">
 				<tr>
 				<th>Libro</th>
+				<th>Autor</th>
+				<th>Precio</th>
 				</tr>
-				<c:forEach var="ven" items="${ventas}" varStatus="i">			
+				<c:forEach var="ven" items="${carrito}" varStatus="i">			
 					<tr>
-						<td>${ven.getIdlibro()}</td>
+						<td>${ven.getLibro()}</td>
+						<td>${ven.getAutor()}</td>
+						<td>${ven.getPrecio()}</td>
 					</tr>			
 				</c:forEach>			
 			</table>		
