@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
 		String url="";
 		switch(op) {
 			case "toDatosCurso":
-				url="datos.html";
+				url="datosCurso.html";
 				break;
 			case "toInicio":
 				url="inicio.html";

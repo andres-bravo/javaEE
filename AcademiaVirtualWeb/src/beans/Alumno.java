@@ -5,12 +5,14 @@ public class Alumno {
 	private String nombre;
 	private String dni;
 	private int telefono;
+	private boolean admin;
 	
-	public Alumno(String nombre, String dni, int telefono) {
+	public Alumno(String nombre, String dni, int telefono, boolean admin) {
 		super();
 		this.nombre = nombre;
 		this.dni = dni;
 		this.telefono = telefono;
+		this.admin = admin;
 	}
 	public String getNombre() {
 		return nombre;
@@ -29,6 +31,18 @@ public class Alumno {
 	}
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
+	}
+	public int getId_alumno() {
+		return id_alumno;
+	}
+	public void setId_alumno(int id_alumno) {
+		this.id_alumno = id_alumno;
+	}
+	public boolean getAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 	
