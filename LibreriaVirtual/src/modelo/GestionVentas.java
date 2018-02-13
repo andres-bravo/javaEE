@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,8 +25,25 @@ public class GestionVentas {
 		catch(NamingException ex) {
 			ex.printStackTrace();
 		}
+	}	
+	public void agregarVentas(List<Venta> ventas) {
+	       try(Connection cn=ds.getConnection()) {
+	            String sql="Insert into ventas (idCliente, idLibro, fecha) ";
+	            sql+="values(?,?,?)";
+	            //creamos consulta preparada:
+	            PreparedStatement ps=cn.prepareStatement(sql);
+	            for(Venta v:ventas) {   
+	            	//Sustituimos parametros por valores
+	               ps.setInt(1, v.getIdCliente());
+	               ps.setInt(2, v.getIdLibro());
+	               ps.setTimestamp(3, new java.sql.Timestamp(new java.util.Date().getTime()));
+	               //ejecutamos
+	               ps.execute();
+	            }
+	        }  catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }      
 	}
-		
     public void agregar(int idVenta, int idCliente, int idLibro, LocalDateTime fecha){
         try(Connection cn=ds.getConnection()) {                       
             /*//Paso 2: Envio SQL
@@ -33,15 +51,14 @@ public class GestionVentas {
             sql+="values('"+nombre+"','"+email+"',"+telefono+")";
             Statement st=cn.createStatement();
             st.execute(sql);   */
-            String sql="Insert into ventas (idVEnta, idCliente, idLibro, fecha) ";
-            sql+="values(?,?,?,?)";
+            String sql="Insert into ventas (idCliente, idLibro, fecha) ";
+            sql+="values(?,?,?)";
             //creamos consulta preparada:
             PreparedStatement ps=cn.prepareStatement(sql);
                //Sustituimos parametros por valores
-               ps.setInt(1, idVenta);
-               ps.setInt(2, idCliente);
-               ps.setInt(3, idLibro);
-               ps.setTimestamp(4, java.sql.Timestamp.valueOf(fecha));
+               ps.setInt(1, idCliente);
+               ps.setInt(2, idLibro);
+               ps.setTimestamp(3, new java.sql.Timestamp(new java.util.Date().getTime()));
                //ejecutamos
                ps.execute();
             

@@ -38,10 +38,19 @@ public class Controller extends HttpServlet {
 				url="LoginAction";
 				break;
 			case "doAgregarCarrito":
-				url="AgregarProductoCarrito?idLibro="+request.getParameter("idLibro");
+				//url="AgregarProductoCarrito?idLibro="+request.getParameter("idLibro");
+				url="AgregarProductoCarrito";
+				break;
+			case "doQuitarProductoCarrito":
+				//url="QuitarProductoCarrito?numarticulo="+request.getParameter("numarticulo")+"&selectTemas="+request.getParameter("selectTemas");
+				url="QuitarProductoCarrito";
+				break;
+			case "doRealizarCompra":
+				url="RealizarCompraAction";
 				break;
 		}
 		request.getRequestDispatcher(url).forward(request, response);
+		
 	}
 
 }

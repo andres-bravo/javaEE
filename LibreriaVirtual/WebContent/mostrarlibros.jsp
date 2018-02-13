@@ -31,6 +31,13 @@
 		</c:otherwise>		
 	</c:choose>
 	<br/>
+	<br/>
+	
+	
+	<a href="Controller?op=doRecuperarTemas">Otro Tema</a>
+	
+	<br/>
+	<br/>	
 	<c:set var="carrito" value="${sessionScope.carrito}"/>
 	<c:choose>
 		<c:when test="${empty carrito}">
@@ -48,12 +55,17 @@
 						<td>${ven.getLibro()}</td>
 						<td>${ven.getAutor()}</td>
 						<td>${ven.getPrecio()}</td>
+						<td><a href="Controller?op=doQuitarProductoCarrito&numarticulo=${i.index}&selectTemas=${requestScope.selectTemas}">Eliminar</a></td>	
 					</tr>			
 				</c:forEach>			
-			</table>		
+			
+			</table>
+			<br/>
+			<br/>		
+			<a href="Controller?op=doRealizarCompra">Realizar Compra</a>
 		</c:otherwise>		
 	</c:choose>	
-	<br/>
-	<a href="Controller?op=doRecuperarTemas">Otro Tema</a>
+	
+
 </body>
 </html>

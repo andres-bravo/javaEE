@@ -46,5 +46,4 @@ public class AgregarProductoCarrito extends HttpServlet {
 		//request.getRequestDispatcher("Controller?op=doMostrarLibros?selectTemas=2");
 		request.getRequestDispatcher("RecuperarLibrosAction?selectTemas="+Integer.parseInt(request.getParameter("selectTemas"))).forward(request, response);
 	}
-
 }
