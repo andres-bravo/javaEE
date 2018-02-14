@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>registro</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="js/jquery-3.3.1.min.js">
+
+</script>
+
+
+<script type="text/javascript">
+	function rellenado(){
+		if($("#usuario").val()==""||
+		   $("#password").val()==""||
+		   $("#email").val()==""||
+		   $("#telefono").val()==""){
+			alert("No puede haber campos vacíos");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function compruebaEmail(){
+		var email=$("#email").val();
+		if(email.indexOf("@")==-1||email.indexOf(".")==-1){
+			alert("Email no válido");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function compruebaTelefono(){
+		var tel=$("#telefono").val();
+		if(isNaN(tel)){
+			alert("Teléfono no válido");
+			$("#telefono").focus();
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function general(){
+		return rellenado()&&compruebaEmail()&&compruebaTelefono();
+	}
+
+
+</script>
+
+
+</head>
+<body>
+
+<form action="Controller?op=doRegistro" onsubmit="return general();" method="post">
+	
+	Usuario:<input id="usuario" type="text" name="usuario" />
+	<br/>
+	Password:<input id="password" type="password" name="password"/>
+	<br/>
+	Email:<input id="email" type="text" name="email"/>
+	<br/>
+	Telefono:<input onblur="compruebaTelefono()" id="telefono" type="text" name="telefono"/>
+	<br/>
+	
+	<input type="submit" value="Grabar"/>
+	
+	
+</form>
+
+</body>
+</html>
