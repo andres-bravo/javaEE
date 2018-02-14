@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	function lanzarPeticion(){
+		//Lanzo peticion http desde javascript url, json(Con parametros)
+		$.get("Controller",{op:"doRecuperar"}, function(resultado){manipularRespuesta(resultado)});
+	}
+	function eliminarPeticion(idContacto){
+		//Lanzo peticion http desde javascript url, json(Con parametros)
+		$.get("Controller",{op:"doEliminar",idContacto:idContacto}, function(resultado){manipularRespuesta(resultado)});
+	}
+	
+	function manipularRespuesta(resultado){
+		//construimos una tabla HTML con los datos
+		//del array JSON recibido en resultado
+		//primero parseamos el JSON
+		var res=$.parseJSON(resultado);
+		var tabla="<table border='1'><tr><th></th><th>Nombre</th><th>Email</th><th>Telefono</th></tr>";
+		for (var i=0;i<res.length;i++){
+			tabla+="<tr>";
+			//tabla+="<td><a href=Controller?op=doEliminar&idContacto="+res[i].idContacto+">Eliminar</a>"
+			tabla+="<td><a href='javascript:eliminarPeticion("+res[i].idContacto+")'>Eliminar</a></td>"
+			tabla+="<td>"+res[i].nombre+"</td>";
+			tabla+="<td>"+res[i].email+"</td>";
+			tabla+="<td>"+res[i].telefono+"</td>";			
+			tabla+="</tr>"
+		}
+		tabla+="</table>"
+		//La volcamos dentro de la división div con la propiedad html
+		$("#resp").html(tabla)
+	}
+</script>
+
+
+</head>
+<body>
+
+	<center>
+		<a href="Controller?op=toDatos">Alta contacto</a><br/><br/>
+		<a href="javascript:lanzarPeticion()">Mostrar Contactos</a><br/><br/>
+	<br/><br/><br/>
+	<div id="resp">
+	
+	</div>
+	</center>
+</body>
+</html>
