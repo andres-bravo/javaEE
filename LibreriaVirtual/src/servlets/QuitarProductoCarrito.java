@@ -25,9 +25,9 @@ public class QuitarProductoCarrito extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//obtenemos/creamos HttpSession
 		HttpSession s=request.getSession();
-		//Comprobamos si está establecido el parámetro de session del carrito
+		//Comprobamos si estï¿½ establecido el parï¿½metro de session del carrito
 		ArrayList<Venta> carrito = (ArrayList<Venta>)s.getAttribute("carrito");
-		//Si el no está vacio intento borrar.
+		//Si el no estï¿½ vacio intento borrar.
 		if (carrito!=null){
 			carrito = new ArrayList();
 			int pos=Integer.parseInt(request.getParameter("numarticulo"));
@@ -36,7 +36,7 @@ public class QuitarProductoCarrito extends HttpServlet {
 			//No tengo que hacer un set de la variable carrito en la session porque estoy tocando el
 			//objeto original.
 		}
-		//request.getRequestDispatcher("Vercarrito.jsp").forward(request, response);
+		request.getRequestDispatcher("Vercarrito.jsp").forward(request, response);
 		
 		
 	}
