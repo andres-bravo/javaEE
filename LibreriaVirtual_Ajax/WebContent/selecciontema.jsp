@@ -12,7 +12,7 @@
 		//Para ver el JSON
 		//$.get("Controller",{op:"doMostrarLibros", selectTemas: $("#selectTemas").val()});
 		//Lanzo peticion http desde javascript url, json(Con parametros)
-		$.get("Controller",{op:"doMostrarLibros", selectTemas: $("#selectTemas").val()}, function(resultado){manipularRespuestaLibros(resultado)});
+		$.get("Controller",{op:"doMostrarLibros", selectTemas: $("#selectTemas").val()}, function(resultado){manipularRespuestaLibros(resultado,false)});
 	}
 	function eliminarPeticion(idContacto){
 		//Lanzo peticion http desde javascript url, json(Con parametros)
@@ -34,18 +34,21 @@
 			tabla+="<td><a href='javascript:lanzarPeticionAgregarCarrito("+res[i].idLibro+")'>Comprar</a></td>";
 			tabla+="</tr>"
 		}
-		tabla+="</table>"
+		tabla+="</table></br></br>"
 		//La volcamos dentro de la división div con la propiedad html
 		$("#libros").html(tabla)
 	}
 	
 	function lanzarPeticionAgregarCarrito(idLibro){
-		$.get("Controller",{op:"doAgregarCarrito", idLibro: idLibro}, function(resultado){manipularRespuestaCarrito(resultado)});	
+		$.get("Controller",{op:"doAgregarCarrito", idLibro: idLibro}, function(resultado){manipularRespuestaCarrito(resultado,true)});	
 	}
 	function lanzarPeticionQuitarCarrito(numarticulo){
-		$.get("Controller",{op:"doQuitarProductoCarrito", numarticulo: numarticulo}, function(resultado){manipularRespuestaCarrito(resultado)});	
+		$.get("Controller",{op:"doQuitarProductoCarrito", numarticulo: numarticulo}, function(resultado){manipularRespuestaCarrito(resultado,true)});	
 	}
-	function manipularRespuestaCarrito(resultado){
+	function lanzarPeticionCompraCarrito(){
+		$.get("Controller",{op:"doRealizarCompra"},function(){vaciarCarrito()});
+	}
+	function manipularRespuestaCarrito(resultado,carrito){
 		//construimos una tabla HTML con los datos
 		//del array JSON recibido en resultado
 		//primero parseamos el JSON
@@ -58,19 +61,28 @@
 				tabla+="<td>"+res[i].titulo+"</td>";
 				tabla+="<td>"+res[i].autor+"</td>";
 				tabla+="<td>"+res[i].precio+"</td>";
-				tabla+="<td><a href='javascript:lanzarPeticionQuitarCarrito("+i+")'>Comprar</a></td>";
+				if (carrito){
+					tabla+="<td><a href='javascript:lanzarPeticionQuitarCarrito("+i+")'>Quitar</a></td>";
+				}else{
+					tabla+="<td><a href='javascript:lanzarPeticionQuitarCarrito("+i+")'>Comprar</a></td>";
+				}
 				tabla+="</tr>"
 			}
 			tabla+="</table>";
 			//Enlace realizar compra
 			//Hacerlo con Json
-			//tabla+="<a href="Controller?op=doRealizarCompra">Realizar Compra</a>""
+			tabla+="<a href='javascript:lanzarPeticionCompraCarrito()'>Realizar Compra</a>"
 			
 		}else{
 			tabla="<h1>Carrito vacio</h1>";			
 		}
 		//La volcamos dentro de la división div con la propiedad html
 		$("#carrito").html(tabla);
+	}
+	function vaciarCarrito(){
+		//Vaciamos la div carrito
+		var mensaje = "<h1>Carrito vacio</h1>";
+		$("#carrito").html(mensaje);
 	}
 </script>
 </head>
@@ -101,7 +113,6 @@
 	<center>
 	</center>
 	</div>
-	<br/><br/><br/>
 	<div id="carrito">
 		<h1>Carrito vacio</h1>
 	</div>
