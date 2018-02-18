@@ -7,8 +7,9 @@ public class Alumno {
 	private int telefono;
 	private boolean admin;
 	
-	public Alumno(String nombre, String dni, int telefono, boolean admin) {
+	public Alumno(int idalumno, String nombre, String dni, int telefono, boolean admin) {
 		super();
+		this.id_alumno = idalumno;
 		this.nombre = nombre;
 		this.dni = dni;
 		this.telefono = telefono;

@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-@WebFilter("/*")
+@WebFilter(urlPatterns= {"/Controller*","*.html"})
+		//"/menuAdmin.html","/menuAlumno.html","/datosCurso.html"})
 public class ComprobarLogin implements Filter {
 
     

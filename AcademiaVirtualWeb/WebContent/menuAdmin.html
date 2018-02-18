@@ -7,9 +7,11 @@
 <body>
 
 	<center>
-		<a href="Controller?op=toDatosCurso">Alta Cursos</a><br/><br/>
-		<a href="Controller?op=doRecuperar">Alta Alumnos</a><br/><br/>
-	
+		<a href="datosCurso.html">Alta Cursos</a><br/><br/>
+		<form action="Controller?op=doBuscarAlumno" method="POST">		
+			Dni Alumno:<input type="text" name="dni" />
+			<input type="submit" value="Enviar"/><br/>
+		</form>
 	</center>
 </body>
 </html>

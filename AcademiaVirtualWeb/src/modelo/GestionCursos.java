@@ -2,14 +2,19 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import beans.Alumno;
 import beans.Curso;
 
 public class GestionCursos {
@@ -45,5 +50,41 @@ public class GestionCursos {
 			e.printStackTrace();
 		}		
 	}
+	public List<Curso> todosCursos(){
+		Curso c = null;
+		List<Curso> lc = new ArrayList<Curso>();
+		try(Connection con=ds.getConnection()){
+			String sql="select * from cursos";
+			PreparedStatement ps=con.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while (rs.next()) {
+				c = new Curso(rs.getInt("idcurso"),rs.getString("nombre"),rs.getDate("fecha_inicio").toLocalDate(),rs.getDate("fecha_fin").toLocalDate());
+				lc.add(c);
+			}			
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return lc;	
+	}
+	public List<Curso> cursosAlumnoNoMatriculado(int idalumno){
+		//Lista de cursos en los que un alumno no está matriculado
+		Curso c = null;
+		List<Curso> lc = new ArrayList<Curso>();
+		try(Connection con=ds.getConnection()){
+			String sql="select * from academiavirtual.cursos c where c.idcurso not in (select idcurso from academiavirtual.alumnos_curso ac where ac.idalumno="+idalumno+")";
+			PreparedStatement ps=con.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while (rs.next()) {
+				c = new Curso(rs.getInt("idcurso"),rs.getString("nombre"),rs.getDate("fecha_inicio").toLocalDate(),rs.getDate("fecha_fin").toLocalDate());
+				lc.add(c);
+			}			
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return lc;	
+	}	
+	
 
 }

@@ -25,20 +25,23 @@ public class Controller extends HttpServlet {
 			case "toDatosCurso":
 				url="datosCurso.html";
 				break;
-			case "toInicio":
-				url="inicio.html";
-				break;
 			case "doAltaCurso":
 				url="AltaCursoAction";
 				break;
 			case "doRecuperar":
 				url="RecuperarAction";
 				break;
-			case "doEliminar":
-				url="EliminarAction";
+			case "doBuscarAlumno":
+				url="BuscarAlumnoAction";
 				break;
 			case "doLogin":
 				url="LoginAction";
+				break;
+			case "doNuevoAlumno":
+				url="NuevoAlumnoAction";
+				break;
+			case "doAsignarCursoAlumno":
+				url="AsignarCursoAlumnoAction";
 				break;
 		}
 		request.getRequestDispatcher(url).forward(request, response);
