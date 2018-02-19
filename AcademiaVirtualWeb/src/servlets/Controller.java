@@ -43,6 +43,12 @@ public class Controller extends HttpServlet {
 			case "doAsignarCursoAlumno":
 				url="AsignarCursoAlumnoAction";
 				break;
+			case "doMostrarCursosExamen":
+				url="MostrarCursosExamenAction";
+				break;
+			case "doMostrarExamen":
+				url="MostrarExamenAction";
+				break;
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}

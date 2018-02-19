@@ -84,7 +84,29 @@ public class GestionCursos {
 			ex.printStackTrace();
 		}
 		return lc;	
-	}	
+	}
+	public List<Curso> cursosExamenPendiente(int idalumno){
+		//Lista de cursos en los que un alumno no está matriculado
+		Curso c = null;
+		List<Curso> lc = new ArrayList<Curso>();
+		try(Connection con=ds.getConnection()){
+			String sql="select c.idcurso, c.nombre, c.fecha_inicio, c.fecha_fin from academiavirtual.alumnos_curso ac inner join academiavirtual.cursos c "
+					+ "where (ac.idcurso=c.idcurso) and (ac.idalumno=? and isnull(ac.fechaexamen) and isnull(ac.notaexamen) and (c.fecha_fin>=?))";
+			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setInt(1, idalumno);
+			ps.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+			ResultSet rs=ps.executeQuery();
+			System.out.println(ps.toString());
 	
-
+			while (rs.next()) {
+				c = new Curso(rs.getInt("idcurso"),rs.getString("nombre"),rs.getDate("fecha_inicio").toLocalDate(),rs.getDate("fecha_fin").toLocalDate());
+				lc.add(c);
+			}			
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return lc;	
+	}	
 }
+
