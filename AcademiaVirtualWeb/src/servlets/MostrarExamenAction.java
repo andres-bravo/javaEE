@@ -1,4 +1,4 @@
-package modelo;
+package servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Alumno;
-import beans.Curso;
 import beans.PreguntaRespuestas;
+import modelo.GestionExamen;
 
 /**
  * Servlet implementation class MostrarExamenAction

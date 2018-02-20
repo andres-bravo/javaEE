@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import beans.Curso;
 import beans.Pregunta;
 import beans.PreguntaRespuestas;
 import beans.Respuesta;
@@ -33,6 +33,7 @@ public class GestionExamen {
 			e.printStackTrace();
 		}
 	}
+	
 	public List<PreguntaRespuestas> DameExamenCurso(int idcurso){
 		/*Query union
 		 *  select pe.idcurso, pe.idpregunta, p.pregunta, r.idrespuesta,r.respuesta, r.correcta
@@ -106,7 +107,58 @@ public class GestionExamen {
 		catch(SQLException ex) {
 			ex.printStackTrace();
 		}
-		return lpreResp;	
-		
+		return lpreResp;			
 	}
+	public List<Integer> RespuestasCorrectasExamen(int idcurso) {
+		/*Query
+		 * select r.idrespuesta 
+ from academiavirtual.preguntasexamen pe 
+ inner join academiavirtual.preguntas p on (pe.idpregunta=p.idpregunta) 
+inner join academiavirtual.respuestaspregunta rp on (p.idpregunta= rp.idpregunta) 
+inner join academiavirtual.respuestas r on (rp.idrespuesta= r.idrespuesta)
+ where pe.idcurso=5 and r.correcta=true;
+		 */
+		List<Integer> laciertos = new ArrayList<Integer>();
+		try(Connection con=ds.getConnection()){
+			String sql="select r.idrespuesta \n" + 
+					" from academiavirtual.preguntasexamen pe \n" + 
+					" inner join academiavirtual.preguntas p on (pe.idpregunta=p.idpregunta) \n" + 
+					"inner join academiavirtual.respuestaspregunta rp on (p.idpregunta= rp.idpregunta) \n" + 
+					"inner join academiavirtual.respuestas r on (rp.idrespuesta= r.idrespuesta)\n" + 
+					" where pe.idcurso=? and r.correcta=true";
+			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setInt(1, idcurso);
+			ResultSet rs=ps.executeQuery();
+			System.out.println(ps.toString());
+			while (rs.next()) {
+				laciertos.add(rs.getInt("idrespuesta"));
+			}
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return laciertos;
+	}
+	public void GrabarExamen(int idcurso, int idalumno,double notaexamen) {
+		//Graba el resultado del examen en la tabla alumnos curso
+		//Conexion a la BBDD
+		try(Connection cn=ds.getConnection()) {  
+			String sql="update alumnos_curso set (idalumno = ?,idcurso =?,fechaexamen=?,notaexamen=?) where (idalumno=? and icurso=?)";
+			PreparedStatement ps= cn.prepareStatement(sql);
+			ps.setInt(1, idalumno);
+			ps.setInt(2, idcurso);
+			ps.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+			ps.setDouble(4, notaexamen);
+			ps.setInt(5, idalumno);
+			ps.setInt(6, idcurso);
+			System.out.println(ps.toString());
+			ps.execute();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

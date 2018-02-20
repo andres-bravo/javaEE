@@ -18,13 +18,14 @@
 				<a href="menuAlumno.html">Menú Principal</a><br/><br/>
 			</c:when>
 			<c:otherwise>
-				<form action="Controller?op=doMostrarExamen" method="POST"></br>							
+				<form action="Controller?op=doCorregirExamen&idcurso=${param.selectCurso}" method="POST"></br>							
 				<c:forEach var="preguntaRespuestas" items="${lexamen}" varStatus="i">
     					<H1>Pregunta ${i.getCount()} : ${preguntaRespuestas.getPregunta().getPregunta()}</H1></br>
+    					<p>select:${param.selectCurso}</p>
     					<c:forEach var="respuesta" items="${preguntaRespuestas.getLrespuestas()}" varStatus="j">
     						<p>Respuesta ${i.getCount()}.${j.getCount()} ${respuesta.getRespuesta()}</p></br>   						
     					</c:forEach>
-    					<p>SeleccionarRespuesta:</p> <select id="selectCurso" name="selectCurso"${preguntaRespuestas.getPregunta().getIdpregunta()}>
+    					<p>SeleccionarRespuesta:</p> <select id="selectRespuesta${i.getCount()}" name="selectRespuesta${i.getCount()}">
     						<c:forEach var="respuesta" items="${preguntaRespuestas.getLrespuestas()}" varStatus="k">
     							<option value="${respuesta.getIdrespuesta()}">${i.getCount()}.${k.getCount()}</option>						
     						</c:forEach>

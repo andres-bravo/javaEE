@@ -34,7 +34,7 @@ public class GestionCursos {
 
 	}
 	public void grabarCurso(String nombre, LocalDate fecha_inicio, LocalDate fecha_fin){
-		//Graba Alumno
+		//Graba Curso
 		//Conexion a la BBDD
 		try(Connection cn=ds.getConnection()) {  
 			String sql="insert into cursos(nombre,fecha_inicio,fecha_fin) values(?,?,?)";
