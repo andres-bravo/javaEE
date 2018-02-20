@@ -41,7 +41,7 @@ public class CorregirExamenAction extends HttpServlet {
 		double nota = ((aciertos*10)/lRespCorrectas.size());
 		System.out.println("a:"+aciertos+" t:"+lRespCorrectas.size());
 		System.out.println((aciertos*10)/lRespCorrectas.size());
-		System.out.println("nota:"+nota);
+		System.out.println("nota: "+nota);
 		gexamen.GrabarExamen(idcurso, al.getId_alumno(),nota);
 		request.getRequestDispatcher("menuAlumno.html").forward(request, response);
 	}
