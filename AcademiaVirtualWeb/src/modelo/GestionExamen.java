@@ -143,7 +143,7 @@ inner join academiavirtual.respuestas r on (rp.idrespuesta= r.idrespuesta)
 		//Graba el resultado del examen en la tabla alumnos curso
 		//Conexion a la BBDD
 		try(Connection cn=ds.getConnection()) {  
-			String sql="update alumnos_curso set (idalumno = ?,idcurso =?,fechaexamen=?,notaexamen=?) where (idalumno=? and icurso=?)";
+			String sql="update alumnos_curso set idalumno=?,idcurso =?,fechaexamen=?,notaexamen=? where (idalumno=? and idcurso=?)";
 			PreparedStatement ps= cn.prepareStatement(sql);
 			ps.setInt(1, idalumno);
 			ps.setInt(2, idcurso);
