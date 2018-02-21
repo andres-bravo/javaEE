@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function comprobar(){
+		//obtenemos referencia a los objetos etiqueta de texto
+		var cantidadextraer=document.getElementById("cantidadextraer");
+		//comprueba si cantidad vacia o no número		
+		if(cantidadextraer.value=="" || (isNaN(cantidadextraer.value))){
+			alert("Debe introducir una cantidad válida (Número)"+cantidadextraer.value);
+			return false;
+		}else {
+			return true;
+		}		
+	}
+</script>
+</head>
+<body>
+
+	<center>
+		<H1>EXTRACCIÓN</H1>
+		<form action="Controller?op=doExtraer" onsubmit="return comprobar();" method="POST">		
+			Cantidad a Extraer:<input type="text" id="cantidadextraer" name="cantidadextraer" />
+			<input type="submit" value="Enviar"/><br/>
+		</form>
+		</br></br><a href="menuprincipal.html">Volver al Menú</a><br/><br/>
+	</center>
+</body>
+</html>

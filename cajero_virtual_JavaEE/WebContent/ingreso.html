@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function comprobar(){
+		//obtenemos referencia a los objetos etiqueta de texto
+		var cantidadingresar=document.getElementById("cantidadingresar");
+		//comprueba si cantidad vacia o no número		
+		if(cantidadingresar.value=="" || (isNaN(cantidadingresar.value))){
+			alert("Debe introducir una cantidad válida (Número)"+cantidadingresar.value);
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+</script>
+</head>
+<body>
+
+	<center>
+		<H1>INGRESO</H1>
+		<form action="Controller?op=doIngresar" onsubmit="return comprobar();" method="POST">		
+			Cantidad a Ingresar:<input type="text" id="cantidadingresar" name="cantidadingresar" />
+			<input type="submit" value="Enviar"/><br/>
+		</form>
+		</br></br><a href="menuprincipal.html">Volver al Menú</a><br/><br/>
+	</center>
+</body>
+</html>
