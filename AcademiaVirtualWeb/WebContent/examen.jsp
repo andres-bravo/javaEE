@@ -21,7 +21,6 @@
 				<form action="Controller?op=doCorregirExamen&idcurso=${param.selectCurso}" method="POST"></br>							
 				<c:forEach var="preguntaRespuestas" items="${lexamen}" varStatus="i">
     					<H1>Pregunta ${i.getCount()} : ${preguntaRespuestas.getPregunta().getPregunta()}</H1></br>
-    					<p>select:${param.selectCurso}</p>
     					<c:forEach var="respuesta" items="${preguntaRespuestas.getLrespuestas()}" varStatus="j">
     						<p>Respuesta ${i.getCount()}.${j.getCount()} ${respuesta.getRespuesta()}</p></br>   						
     					</c:forEach>
